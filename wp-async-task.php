@@ -78,10 +78,10 @@ if ( ! class_exists( 'WP_Async_Task' ) ) {
 				throw new Exception( 'Action not defined for class ' . __CLASS__ );
 			}
 			add_action( $this->action, array( $this, 'launch' ), (int) $this->priority, (int) $this->argument_count );
-			if ( $auth_level & self::LOGGED_IN ) {
+			if ( $auth_level && self::LOGGED_IN ) {
 				add_action( "admin_post_wp_async_$this->action", array( $this, 'handle_postback' ) );
 			}
-			if ( $auth_level & self::LOGGED_OUT ) {
+			if ( $auth_level && self::LOGGED_OUT ) {
 				add_action( "admin_post_nopriv_wp_async_$this->action", array( $this, 'handle_postback' ) );
 			}
 		}
